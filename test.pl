@@ -30,9 +30,10 @@ package People {
 my $p = People->new;
 $p->what_can_i_do;
 
-use Data::Dumper;
-no strict 'refs';
-my $code = *{"People::"};
-say Dumper *{$code->{what_can_i_do}}{CODE};
+# test: getting methods
+#use Data::Dumper;
+#no strict 'refs';
+#my $code = *{"People::"};
+#say Dumper *{$code->{what_can_i_do}}{CODE};
 
 

@@ -1,6 +1,6 @@
 package Mojo::Role;
 use Mojo::Base -base;
-# ABSTRACT: Mojo::Role - Mojolicious meeting roles
+# ABSTRACT: Mojo::Role - Tiny and simple role system for Mojo 
 
 # pragmas
 use strict;

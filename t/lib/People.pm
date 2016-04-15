@@ -2,7 +2,7 @@ package People;
 use Mojo::Base 'Developer';
 
 # using roles
-use Mojo::Role -with;
+use Mojo::RoleTiny -with;
 with 'MojoCoreMantainer';
 with 'PerlCoreMantainer';
 

@@ -11,7 +11,7 @@ use lib "$FindBin::Bin/../lib";
 
 use Test::More;
 
-BEGIN { use_ok 'Mojo::Role' }
+BEGIN { use_ok 'Mojo::RoleTiny' }
 
 done_testing();
 

@@ -11,7 +11,7 @@ use lib "$FindBin::Bin/lib";
 use lib "$FindBin::Bin/../lib";
 
 use Test::More;
-use Mojo::Role;
+use Mojo::RoleTiny;
 
 # test class
 use People;
@@ -21,12 +21,12 @@ use MojoCoreMantainer;
 
 subtest 'test for requires func' => sub {
   can_ok 'MojoCoreMantainer', 'requires';
-  ok ! eval{ MojoCoreMantainer->isa('Mojo::Role') }, 'no extends Mojo::Role';
+  ok ! eval{ MojoCoreMantainer->isa('Mojo::RoleTiny') }, 'no extends Mojo::RoleTiny';
 };
 
 
 subtest 'test for with func' => sub {
-  ok ! eval{ Developer->isa('Mojo::Role') }, 'no extends Mojo::Role';
+  ok ! eval{ Developer->isa('Mojo::RoleTiny') }, 'no extends Mojo::RoleTiny';
   can_ok 'People', 'with';
 };
 

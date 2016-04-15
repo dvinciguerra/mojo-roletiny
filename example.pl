@@ -16,7 +16,7 @@ package People {
   use Mojo::Base 'Developer';
 
   # load roles
-  use Mojo::Role -with;
+  use Mojo::RoleTiny -with;
   with 'MojoCoreMantainer';
   with 'PerlCoreMantainer';
   

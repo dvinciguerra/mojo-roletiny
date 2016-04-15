@@ -2,13 +2,13 @@
 
 =head1 NAME
 
-Mojo::Role - Tiny and simple role system for Mojo
+Mojo::RoleTiny - Tiny and simple role system for Mojo
 
 =head1 SYNOPSIS
 
   # role class
   package MojoCoreMantainer;
-  use Mojo::Role;
+  use Mojo::RoleTiny;
 
   sub mantaining_mojo {
     say "I'm making improvements for Mojolicious..."
@@ -29,7 +29,7 @@ Mojo::Role - Tiny and simple role system for Mojo
   use Mojo::Base 'Developer';
 
   # using roles
-  use Mojo::Role -with;
+  use Mojo::RoleTiny -with;
   with 'MojoCoreMantainer';
 
   # method
@@ -47,16 +47,16 @@ This module provide a simple and light dependence way to use roles in
 L<Mojolicious|http://mojolicious.org/> classes.
 
   # For a role class
-  use Mojo::Role;
+  use Mojo::RoleTiny;
 
   # To use/consume a role
-  use Mojo::Role -with;
+  use Mojo::RoleTiny -with;
   with 'Role::SomeRoleClass';
 
 
 =head1 FUNCTIONS
 
-Mojo::Role optionally exports a C<with> function, that can be imported with the C<-with> flag.
+Mojo::RoleTiny optionally exports a C<with> function, that can be imported with the C<-with> flag.
 When exported the caller is not implementing a role but rather consuming them.
 
 =head2 with

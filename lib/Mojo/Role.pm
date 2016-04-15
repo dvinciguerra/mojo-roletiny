@@ -3,11 +3,9 @@ package Mojo::Role;
 # ABSTRACT: Mojo::Role - Tiny and simple role system for Mojo
 
 # imports
-use strict;
-use warnings;
+use Mojo::Base -strict;
 use Role::Tiny       ();
 use Role::Tiny::With ();
-use Mojo::Base       ();
 use Mojo::Util       ();
 
 # version

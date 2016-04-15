@@ -3,7 +3,8 @@ use Mojo::Base -strict;
 # ABSTRACT: Mojo::Role - Tiny and simple role system for Mojo
 
 # imports
-use Role::Tiny ();
+use Role::Tiny       ();
+use Role::Tiny::With ();
 
 # version
 our $VERSION = 0.02;
@@ -16,12 +17,12 @@ sub import {
 
   # import with
   if($mode and $mode eq '-with'){
-    @_ = (qw/Role::Tiny with/);
-    goto &Role::Tiny::import;
+    @_ = 'Role::Tiny::With';
+    goto &Role::Tiny::With::import;
   }
 
   # assign class as a role
-  @_ = (qw/Role::Tiny/);
+  @_ = 'Role::Tiny';
   goto &Role::Tiny::import;
 }
 

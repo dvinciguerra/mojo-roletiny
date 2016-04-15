@@ -11,7 +11,7 @@ use Mojo::Base       ();
 use Mojo::Util       ();
 
 # version
-our $VERSION = 0.021;
+our $VERSION = 0.022;
 
 sub import {
   # caller is a consumer, import with

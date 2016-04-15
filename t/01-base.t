@@ -19,40 +19,15 @@ use Developer;
 use MojoCoreMantainer;
 
 
-subtest 'test for class base' => sub {
-  isa_ok 'MojoCoreMantainer', 'Mojo::Role';
+subtest 'test for requires func' => sub {
+  can_ok 'MojoCoreMantainer', 'requires';
+  ok ! eval{ MojoCoreMantainer->isa('Mojo::Role') }, 'no extends Mojo::Role';
 };
 
-subtest 'test for role type' => sub {
-  isa_ok 'MojoCoreMantainer', 'Mojo::Role';
-};
 
-subtest 'test with function' => sub {
-  ok !Developer->isa('Mojo::Role');
+subtest 'test for with func' => sub {
+  ok ! eval{ Developer->isa('Mojo::Role') }, 'no extends Mojo::Role';
   can_ok 'People', 'with';
-};
-
-subtest 'test for class loader' => sub {
-  # not a role
-  eval { Mojo::Role::_load_class('People') };
-  ok $@;
-
-  # not exists
-  eval { Mojo::Role::_load_class('ClassThatNotExists') };
-  ok $@;
-
-  # ok
-  eval { Mojo::Role::_load_class('MojoCoreMantainer') };
-  ok !$@;
-};
-
-subtest 'test for with' => sub {
-  # load class and method
-  eval { Mojo::Role::with(__PACKAGE__, 'TestWith') };
-  ok !$@;
-
-  # method is loaded?
-  is test_method(), 1;
 };
 
 done_testing();

@@ -1,50 +1,36 @@
-#!/usr/bin/env perl 
+#!perl
+
 use 5.10.0;
 use strict;
 use warnings;
 
-package Does::Encode::SHA1 {
-  use Mojo::Role -role; # automatic load Mojo::Base -strict
+use FindBin;
+use lib "$FindBin::Bin/lib";
+use lib "$FindBin::Bin/t/lib";
 
-  # imports
-  use Digest::SHA1 qw/sha1_hex/;
 
-  # method required (die unless caller can)
-  requires 'as_hash';
- 
-  sub encode {
-    my $self = shift;
-    return sha1_hex $self->as_hash;
-  }
-}
-
-In your class:
-
-package App::Controller::Home {
-  use Mojo::Base 'Mojolicious::Controller';
+# People class
+# is Developer 
+# does 'MojoCoreMantainer' and 'PerlCoreMantainer'
+package People {
+  use Mojo::Base 'Developer';
 
   # load roles
   use Mojo::Role -with;
-  with 'Does::Encode::SHA1';
+  with 'MojoCoreMantainer';
+  with 'PerlCoreMantainer';
+  
 
-  # attributes
-  has '_data' => {};
-
-
-  # methods
-  sub do_something {
+  sub what_can_i_do {
     my $self = shift;
-
-    # call encode method
-    my $enc = $self->encode;
-
-    ...
-  }
-
-  # required method
-  sub as_hash {
-    return $_[0]->_data
+    say "I can do people things...";
+    $self->make_code;
+    $self->mantaining_mojo;
+    $self->mantaining_perl;
   }
 }
+
+my $p = People->new;
+$p->what_can_i_do;
 
 

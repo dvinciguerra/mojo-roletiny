@@ -1,8 +1,9 @@
 package TestWith;
-use Mojo::Base 'Mojo::Role';
+use Mojo::Role;
 
 sub test_method {
   return 1;
 }
 
-1
+1;
+

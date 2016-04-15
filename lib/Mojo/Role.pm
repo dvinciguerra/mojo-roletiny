@@ -8,23 +8,24 @@ use warnings;
 use Role::Tiny       ();
 use Role::Tiny::With ();
 use Mojo::Base       ();
+use Mojo::Util       ();
 
 # version
 our $VERSION = 0.021;
 
 sub import {
-  $_->import for qw(strict warnings utf8);
-  feature->import(':5.10');
-
-  # import with
+  # caller is a consumer, import with
+  # it is assumed that the caller's Mojo::Base imported strict already
   if (@_ > 1 and $_[1] eq '-with') {
     @_ = 'Role::Tiny::With';
     goto &Role::Tiny::With::import;
   }
 
+  # the caller is a role
+  # roles are strict
+  Mojo::Base->import('-strict');
   my $target = caller;
-  my $has = sub { Mojo::Base::attr($target, @_) };
-  { no strict 'refs'; *{"${target}::has"} = $has }
+  Mojo::Util::monkey_patch $target, has => sub { Mojo::Base::attr($target, @_) };
 
   @_ = 'Role::Tiny';
   goto &Role::Tiny::import;
@@ -37,13 +38,13 @@ __END__
 =head1 NAME
 
 Mojo::Role - Tiny and simple role system for Mojo
- 
+
 =head1 SYNOPSIS
- 
+
   # role class
   package MojoCoreMantainer;
   use Mojo::Role;
-  
+
   sub mantaining_mojo {
     say "I'm making improvements for Mojolicious..."
   }
@@ -52,7 +53,7 @@ Mojo::Role - Tiny and simple role system for Mojo
   # base class
   package Developer;
   use Mojo::Base -base;
-  
+
   sub make_code {
     say "I'm making code for Mojolicious ecosystem..."
   }
@@ -61,11 +62,11 @@ Mojo::Role - Tiny and simple role system for Mojo
   # class
   package People;
   use Mojo::Base 'Developer';
-  
+
   # using roles
   use Mojo::Role -with;
   with 'MojoCoreMantainer';
-  
+
   # method
   sub what_can_i_do {
     my $self = shift;
@@ -77,20 +78,21 @@ Mojo::Role - Tiny and simple role system for Mojo
 
 =head1 DESCRIPTION
 
-This module provide a simple and dependence free way to use roles in 
+This module provide a simple and light dependence way to use roles in
 L<Mojolicious|http://mojolicious.org/> classes.
 
   # For a role class
   use Mojo::Role;
-  
-  # To import/use a role
+
+  # To use/consume a role
   use Mojo::Role -with;
   with 'Role::SomeRoleClass';
 
 
 =head1 FUNCTIONS
 
-Mojo::Role implement C<with> function, that can be imported with the C<-with> flag.
+Mojo::Role optionally exports a C<with> function, that can be imported with the C<-with> flag.
+When exported the caller is not implementing a role but rather consuming them.
 
 =head2 with
 
@@ -99,9 +101,19 @@ Mojo::Role implement C<with> function, that can be imported with the C<-with> fl
 Import a role or a list of roles to use.
 
 
+=head1 AUTHOR
+
+Daniel Vinciguerra <daniel.vinciguerra at bivee.com.br>
+
+=head1 CONTRIBUTORS
+
+Joel Berger (jberger)
+
+Matt S. Trout (mst)
+
 =head1 COPYRIGHT AND LICENSE
 
-Copyright (C) 2016, Daniel Vinciguerra <daniel.vinciguerra at bivee.com.br>
+Copyright (C) 2016, Daniel Vinciguerra and L</CONTRIBUTORS>.
 
 This program is free software; you can redistribute it and/or modify it under the same terms as Perl itself.
 

@@ -1,27 +1,31 @@
 package Mojo::Role;
-use Mojo::Base -strict;
+
 # ABSTRACT: Mojo::Role - Tiny and simple role system for Mojo
 
 # imports
+use strict;
+use warnings;
 use Role::Tiny       ();
 use Role::Tiny::With ();
+use Mojo::Base       ();
 
 # version
-our $VERSION = 0.02;
+our $VERSION = 0.021;
 
 sub import {
-  my ($class, $mode) = @_;
-  
-  # load pragmas
-  Mojo::Base->import('-strict');
+  $_->import for qw(strict warnings utf8);
+  feature->import(':5.10');
 
   # import with
-  if($mode and $mode eq '-with'){
+  if (@_ > 1 and $_[1] eq '-with') {
     @_ = 'Role::Tiny::With';
     goto &Role::Tiny::With::import;
   }
 
-  # assign class as a role
+  my $target = caller;
+  my $has = sub { Mojo::Base::attr($target, @_) };
+  { no strict 'refs'; *{"${target}::has"} = $has }
+
   @_ = 'Role::Tiny';
   goto &Role::Tiny::import;
 }

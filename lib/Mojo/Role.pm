@@ -27,24 +27,21 @@ sub import {
 
 1;
 __END__
-
 =encoding utf8
 
-=head3 NAME
+=head1 NAME
 
 Mojo::Role - Tiny and simple role system for Mojo
  
-
-=head3 SYNOPSIS
+=head1 SYNOPSIS
  
   # role class
   package MojoCoreMantainer;
-  use Mojo::Base 'Mojo::Role';
+  use Mojo::Role;
   
   sub mantaining_mojo {
     say "I'm making improvements for Mojolicious..."
   }
-
 
 
   # base class
@@ -73,39 +70,39 @@ Mojo::Role - Tiny and simple role system for Mojo
   }
 
 
-=head3 DESCRIPTION
+=head1 DESCRIPTION
 
-This module provide a simple and dependence free way to use roles in L<Mojolicious|http://mojolicious.org/> classes.
+This module provide a simple and dependence free way to use roles in 
+L<Mojolicious|http://mojolicious.org/> classes.
 
   # For a role class
   use Mojo::Role;
-
-
-  # Loading a role
+  
+  # To import/use a role
   use Mojo::Role -with;
   with 'Role::SomeRoleClass';
 
 
-=head3 FUNCTIONS
+=head1 FUNCTIONS
 
 Mojo::Role implement C<with> function, that can be imported with the C<-with> flag.
 
-=head4 with
+=head2 with
 
-  use Mojo::Role -with;
   with 'SomeRoleClass';
 
 Import a role or a list of roles to use.
 
 
-=head3 COPYRIGHT AND LICENSE
+=head1 COPYRIGHT AND LICENSE
 
 Copyright (C) 2016, Daniel Vinciguerra <daniel.vinciguerra at bivee.com.br>
 
 This program is free software; you can redistribute it and/or modify it under the same terms as Perl itself.
 
 
-=head3 SEE ALSO
+=head1 SEE ALSO
 
-L<https://github.com/kraih/mojo>, L<Mojo::Base>, L<Mojolicious::Guides>, L<http://mojolicious.org>.
+L<https://github.com/kraih/mojo>, L<Mojo::Base>, L<Role::Tiny>, L<http://mojolicious.org>.
+
 
